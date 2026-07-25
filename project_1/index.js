@@ -1,10 +1,11 @@
 const tarea_agregada = document.querySelector("#tarea-id")
-const agregar_tarea = document.querySelector("#agregar-tarea-button")
 const tareas_pendientes = document.querySelector("#tareas-pendientes-p")
 const span_error_input = document.querySelector(".span-error")
 const eliminar_tareas = document.querySelector("#eliminar-tareas")
+const formulario_tareas = document.querySelector("#form-tareas")
 
-document.addEventListener("DOMContentLoaded", iniciarApp)
+document.addEventListener("DOMContentLoaded", IniciarApp)
+formulario_tareas.addEventListener("submit", ValidarTarea)
 
 eliminar_tareas.addEventListener("click", (e) => {
     localStorage.clear()
@@ -12,18 +13,39 @@ eliminar_tareas.addEventListener("click", (e) => {
     TareasPendientes()
 })
 
-agregar_tarea.addEventListener("click", (e) => {
+let boton_agregar_bloqueado = false
+let alerta_error_mostrandose = false
+
+function ValidarTarea(e) {
+    e.preventDefault()
+
+    if (boton_agregar_bloqueado) return;
 
     const nueva_tarea = tarea_agregada.value
-
-    if (nueva_tarea.trim() === "") {
-        span_error_input.classList.toggle("activate")
-        setTimeout(() => {
-            span_error_input.classList.toggle("activate")
-        }, 2000)
-        return    
-    }
     
+    if (tarea_agregada.value.trim() === "") {
+        if (alerta_error_mostrandose) return
+        alerta_error_mostrandose = true
+        span_error_input.classList.add("activate");
+
+        setTimeout(() => {
+            span_error_input.classList.remove("activate");
+            alerta_error_mostrandose = false
+        }, 2000);
+        return;
+    }
+
+    boton_agregar_bloqueado = true;
+
+    agregarTarea(nueva_tarea);
+    
+    setTimeout(() => {
+        boton_agregar_bloqueado = false;
+    }, 1000);
+}
+
+function agregarTarea(nueva_tarea) {
+
     let array_tareas = JSON.parse(localStorage.getItem('mis_tareas')) || [];
     array_tareas.push(nueva_tarea)
     localStorage.setItem("mis_tareas", JSON.stringify(array_tareas))
@@ -32,7 +54,7 @@ agregar_tarea.addEventListener("click", (e) => {
 
     RenderizarTareas()
     TareasPendientes()
-} )
+}
 
 function TareasPendientes () {
     const total_tareas = JSON.parse(localStorage.getItem("mis_tareas")) || []
@@ -48,12 +70,24 @@ function RenderizarTareas () {
     total_tareas.forEach ((contenido_tarea, index) => {
 
         const li_tarea = document.createElement("li")
-        li_tarea.textContent = contenido_tarea
+        const boton_eliminar_li = document.createElement("button")
+        boton_eliminar_li.textContent = "❌"
+        boton_eliminar_li.classList.add("btn-eliminar")
+        li_tarea.textContent = `${index + 1}. ${contenido_tarea}`
+        li_tarea.appendChild(boton_eliminar_li)
         lista_tareas.appendChild(li_tarea)
+
+        boton_eliminar_li.addEventListener("click", () => {
+            total_tareas.splice(index, 1)
+            localStorage.setItem("mis_tareas", JSON.stringify(total_tareas))
+            RenderizarTareas()
+            TareasPendientes()
+        })
     })
+
 }
 
-function iniciarApp () {
+function IniciarApp () {
 
     RenderizarTareas()
     TareasPendientes()

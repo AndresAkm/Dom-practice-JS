@@ -9,17 +9,17 @@
 <body>
     <h1>BIENVENIDO A TU LISTA DE TAREAS</h1>
 
-    <div>
+    <form id="form-tareas">
         <label for="tarea-id"> Escribe tu tarea
-            <input type="text" name="tarea" id="tarea-id" required>
+            <input type="text" name="tarea" id="tarea-id">
         </label>
-        <button id="agregar-tarea-button">Agregar</button>
+        <button type="submit" id="agregar-tarea-button">Agregar</button>
         <span class="span-error">Error: Inserte un dato</span>
-    </div>
+    </form>
     
-    <ul id="lista-tareas">
+    <ol id="lista-tareas">
         <!-- Aqui iran las tareas que se vayan ingresando -->
-    </ul>
+    </ol>
 
     <!-- Este span mostrara las tareas pendientes dinamicamente -->
     <p id="tareas-pendientes-p">Tareas pendientes: 0</p>
