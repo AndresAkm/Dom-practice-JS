@@ -1,0 +1,8 @@
+.span-error {
+    color: red;
+    display: none
+}
+
+.span-error.activate {
+    display: inline;
+}

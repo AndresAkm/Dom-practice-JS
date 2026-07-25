@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LISTA DE TAREAS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>BIENVENIDO A TU LISTA DE TAREAS</h1>
+
+    <div>
+        <label for="tarea-id"> Escribe tu tarea
+            <input type="text" name="tarea" id="tarea-id" required>
+        </label>
+        <button id="agregar-tarea-button">Agregar</button>
+        <span class="span-error">Error: Inserte un dato</span>
+    </div>
+    
+    <ul id="lista-tareas">
+        <!-- Aqui iran las tareas que se vayan ingresando -->
+    </ul>
+
+    <!-- Este span mostrara las tareas pendientes dinamicamente -->
+    <p id="tareas-pendientes-p">Tareas pendientes: 0</p>
+    
+    <button id="eliminar-tareas"> Eliminar todas las tareas </button>
+
+    <script src="index.js"></script>
+</body>
+</html>
