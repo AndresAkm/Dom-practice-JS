@@ -73,8 +73,12 @@ function RenderizarTareas () {
         const boton_eliminar_li = document.createElement("button")
         boton_eliminar_li.textContent = "❌"
         boton_eliminar_li.classList.add("btn-eliminar")
+        const boton_realizado_li = document.createElement("button")
+        boton_realizado_li.textContent = "✓"
+        boton_realizado_li.classList.add("btn-realizado")
         li_tarea.textContent = `${index + 1}. ${contenido_tarea}`
         li_tarea.appendChild(boton_eliminar_li)
+        li_tarea.appendChild(boton_realizado_li)
         lista_tareas.appendChild(li_tarea)
 
         boton_eliminar_li.addEventListener("click", () => {
