@@ -8,6 +8,13 @@ document.addEventListener("DOMContentLoaded", IniciarApp)
 formulario_tareas.addEventListener("submit", ValidarTarea)
 
 eliminar_tareas.addEventListener("click", (e) => {
+    total_tareas = JSON.parse(localStorage.getItem("mis_tareas"))
+    console.log(total_tareas)
+    if (total_tareas.length == 0) {
+        alert("No tiene tareas creadas")
+        return
+    }
+    alert("¿Está seguro que quiere eliminar todas sus tareas?")
     localStorage.clear()
     RenderizarTareas()
     TareasPendientes()
